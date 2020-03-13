@@ -19,7 +19,7 @@ const Tetris = () => {
     const [dropTime, setDroptime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
 
-    const [player, updatePlayer] = usePlayer();
+    const [player, updatePlayer, resetPlayer, updatePlayerPos] = usePlayer();
     const[stage, setStage] = useStage(player, resetPlayer);
 
     const movePlayer= dir => {
@@ -67,7 +67,7 @@ const Tetris = () => {
                             <Display text='Level' />
                         </div>
                     )}
-                    <StartButton onClick={startGame} />
+                    <StartButton callback={startGame} />
                 </aside>
             </StyledTetris>
         </StyledTetrisWrapper>
