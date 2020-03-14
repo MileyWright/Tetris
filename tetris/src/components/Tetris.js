@@ -16,10 +16,10 @@ import {usePlayer} from '../hooks/usePlayer';
 import {useStage} from '../hooks/useStage';
 
 const Tetris = () => {
-    const [dropTime, setDroptime] = useState(null);
+    const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
 
-    const [player, updatePlayer, resetPlayer, updatePlayerPos] = usePlayer();
+    const [player, updatePlayerPos, resetPlayer] = usePlayer();
     const[stage, setStage] = useStage(player, resetPlayer);
 
     const movePlayer= dir => {
