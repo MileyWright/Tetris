@@ -10,6 +10,20 @@ export const usePlayer = () => {
         collided: false,
     });
 
+    const rotate = (matrix, dir) => {
+        //Make the rows to become cols (transpose)
+        const rotatedTetro = matrix.map((_,index) =>
+        matrix.mao(col => col[index]),
+        );
+        //Reverse each row to get a rotated matrix
+        if(dir > 0) return rotatedTetro.map(row => row.reverse());
+        return rotatedTetro.reverse();
+    }
+    
+    const playerRotate = (stage, dir) => {
+
+    }
+
     const updatePlayerPos = ({x, y, collided}) => {
         setPlayer(prev => ({
             ...prev,
