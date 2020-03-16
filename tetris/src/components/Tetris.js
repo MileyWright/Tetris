@@ -22,7 +22,7 @@ const Tetris = () => {
     const [gameOver, setGameOver] = useState(false);
 
     const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
-    const[stage, setStage] = useStage(player, resetPlayer);
+    const[stage, setStage, rowsCleared] = useStage(player, resetPlayer);
     const [score, setScore, rows, SetRows, level, setLevel] = useGameStatus(rowsCleared);
 
     const movePlayer= dir => {
@@ -38,12 +38,15 @@ const Tetris = () => {
         setDropTime(1000);
         resetPlayer();
         setGameOver(false);
+        setScore(0);
+        SetRows(0);
+        setLevel(0);
     }
 
     const drop = () => {
         //Increases level when player has cleared 10 rows
         if(rows > (level + 1) * 10){
-            setLevel(prev = prev + 1);
+            setLevel(prev => prev + 1);
             //Also increases speed
             setDropTime(1000/ (level + 1) + 200)
         }
@@ -63,7 +66,7 @@ const Tetris = () => {
     const keyUp = ({keyCode}) => {
         if(!gameOver) {
             if (keyCode === 40) {
-                setDropTime(1000);
+                setDropTime(1000/ (level + 1) + 200);
             }
         }
     }
@@ -104,9 +107,9 @@ const Tetris = () => {
                         <Display gameOver={gameOver} text="Game Over" />
                     ) : (
                         <div>
-                            <Display text="Score" />
-                            <Display text="Rows" />
-                            <Display text='Level' />
+                            <Display text={`Score: ${score}`}/>
+                            <Display text={`Row: ${rows}`} />
+                            <Display text={`Level: ${level}`} />
                         </div>
                     )}
                     <StartButton callback={startGame} />
